@@ -43,21 +43,15 @@ var app = {
 			document.addEventListener('deviceready', $.proxy(this.onDeviceReady,this), false);
 		}
 		else {
-			// For testing in a desktop browser
-			console.log("Testing in desktop browser");
+			console.log("Using 'load' event for testing with a desktop browser");
 			window.addEventListener('load', $.proxy(this.onDeviceReady,this), false);
 		}
     },
+	//
     // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
 		var self = this;
 		console.log('Received Event: device-ready');
-		
-		//$("input[name=scanMode]").click($.proxy(this.changeScanMode,this));
-		//$("input[name=checkAnswerMode]").click($.proxy(this.changeCheckAnswerMode,this));
 		
 		$('#scanModeForm input:radio').click(function() { var $radioInput = $(this); self.changeScanMode($radioInput.val())} );
 		$('#checkAnswerModeForm input:radio').click(function() { var $radioInput = $(this); self.changeCheckAnswerMode($radioInput.val())} );		
@@ -82,7 +76,7 @@ var app = {
         console.log("File-system name = " + fileSystem.name);
         console.log("File-system root name = " + fileSystem.root.fullPath);
 	
-		// The following call initiates the following sequence:
+		// The line initiates the following sequence:
 		// 1. Look to see if a JSON file storing the view controlling settings exists
 		// 2. if it does, read it in, parse it with $.parseJson() and have it override 'this.viewControl' 
 		
@@ -110,7 +104,6 @@ var app = {
 	},
 	
     readControlFile: function(file){
-		console.log("IN READCONTROLFILE");
 		var self = this;
 		var reader = new FileReader();
         reader.onloadend = function(evt) {
@@ -118,18 +111,15 @@ var app = {
 			// don't test for "== null", use either the test "obj === null" or the test "!obj"
 			// http://saladwithsteve.com/2008/02/javascript-undefined-vs-null.html
 			if(!evt.target.result) {
-				// TO DO: use default/init settings, stored in the current viewControl
 				console.log("Control file empty, using default values");				
 			} else {				
-				console.log("JSON control read in: " + evt.target.result);
 				self.viewControl = jQuery.parseJSON(evt.target.result);
 				
 			}
 			
 		    self.setRadioButtons();
   
-			console.log("READ FILE - CONTENTS: " + JSON.stringify(self.viewControl));
-			if (!reader.result) { // not doing this in the anonymous handler above: the reader filehandle is definitely closed now // ASK ABOUT THIS
+			if (!reader.result) {
 				self.saveViewControl();
 			}
 		};
@@ -157,20 +147,19 @@ var app = {
 			console.log("app.writeControlFile(): Have written out " + JSON.stringify(self.viewControl));
 		};
 		
-		writer.write(JSON.stringify(self.viewControl) + "\n");// + "\n");
+		writer.write(JSON.stringify(self.viewControl) + "\n");
 	},
 		
 	recDirectoryDump: function(entries) {
-		//console.log(entries);
 		
 		var file_output_str = "";
 		var i;
 		for (i = 0; i < entries.length; i++) {
 			if (entries[i].isFile == true) {
-				file_output_str += "file = " + entries[i].fullPath + "\n";
+				file_output_str += "file = " + entries[i].fullPath + ", ";
 			}
 			if (entries[i].isDirectory == true) {
-				file_output_str += "directory = " + entries[i].fullPath + "\n";
+				file_output_str += "directory = " + entries[i].fullPath + ": ";
 				var directoryReader = entries[i].createReader();
 				directoryReader.readEntries($.proxy(this.recDirectoryDump,this), $.proxy(this.failGeneral,this));
 			}
@@ -180,13 +169,11 @@ var app = {
 	},
 	
 	changeScanMode: function(mode) {
-		console.log("*** called changeScanMode!! value = " + mode);
 		this.viewControl.scanMode = mode;
 		this.saveViewControl();
 	},
 
 	changeCheckAnswerMode: function(mode) {
-		console.log("*** called changeCheckAnswerMode!!" + mode);
 		this.viewControl.checkAnswerMode = mode;
 		this.saveViewControl();
 	}
