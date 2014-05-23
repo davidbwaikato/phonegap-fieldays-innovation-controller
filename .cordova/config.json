@@ -1,0 +1,9 @@
+{
+    "lib": {
+        "www": {
+            "id": "nz.ac.waikato.cs.tipple.innovation2014-controller",
+            "version": "3.4.0",
+            "uri": "https://github.com/phonegap/phonegap-app-hello-world/archive/3.4.0.tar.gz"
+        }
+    }
+}
