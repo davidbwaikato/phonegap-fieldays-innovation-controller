@@ -25,16 +25,61 @@
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <title>Fieldays Innovation</title>
+		<style>
+		
+		/* from http://stackoverflow.com/questions/4516217/make-radio-button-bigger */
+		input[type=radio] {
+			display: none;
+		}
+		input[type=radio] + label::before {
+			content: '';
+			display: inline-block; 
+			border: 1.5px solid #000;
+			border-radius: 50%;
+			margin: 0 0.5em;
+		}
+		input[type=radio]:checked + label::before {
+			background-color: #800000;
+		}
+
+		.radioPad {
+			padding: 1rem;
+		}
+			
+		.bigradio + label::before {
+			width: 1em;
+			height: 1em;
+		}
+		
+		</style>
     </head>
     <body>
-        <div class="app">
-            <h1>Fieldays Innovation Controller</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
+        <div class="fdi-app">
+            <h1 style="font-size: 4.5rem; background-color: #800000; color: white; padding-bottom: 0.5rem;">Fieldays Innovation Controller</h1>
+            
+			<!--<p style="font-size: 2rem;">-->
+			<div style="font-size: 2.5rem; padding-left:3rem; padding-top: 1rem;">
+				<form id="scanModeForm" action="" >
+					Scan Mode:<br />
+					<div class="radioPad">
+						<input class="bigradio" type="radio" id="scanModeQR" name="scanMode" value="QR"><label for="scanModeQR">QR</label>
+					</div>
+					<div class="radioPad">
+						<input class="bigradio" type="radio" id="scanModeAR" name="scanMode" value="AR"><label for="scanModeAR">AR</label>
+					</div>
+				</form>
+	<br />
+				<form id="checkAnswerModeForm" action="">
+					Check Answer Mode:<br />
+					<div class="radioPad"><input class="bigradio" type="radio" id="checkAnswerModeAuto" name="checkAnswerMode" value="Auto"><label for="checkAnswerModeAuto">Auto</label></div>
+					<div class="radioPad"><input class="bigradio" type="radio" id="checkAnswerModeManual" name="checkAnswerMode" value="Manual"><label for="checkAnswerModeManual">Manual</label></div>
+				</form>
+			</div>
+			<!--</p>-->
+				
         </div>
         <script type="text/javascript" src="phonegap.js"></script>
+		<script src="lib/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
             app.initialize();
