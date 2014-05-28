@@ -6,7 +6,7 @@
         id        = "nz.ac.waikato.cs.tipple.innovation2014-controller"
         version   = "1.0.0">
 
-    <name>Fieldays Innovation Controller</name>
+    <name>Controller: Fieldays Innovation</name>
 
     <description>
          Waikato University augmenting Fieldays 2014 Innovation, Mystery Creek, Waikato, New Zealand

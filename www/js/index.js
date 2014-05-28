@@ -16,6 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+ 
+// Phonegap tutorial about using Handlebars template and sliding pages at
+// http://coenraets.org/blog/phonegap-tutorial/ 
+ 
 var app = {
 
     // Application Constructor
@@ -52,7 +56,7 @@ var app = {
     onDeviceReady: function() {
 		var self = this;
 		console.log('Received Event: device-ready');
-		
+	
 		$('#scanModeForm input:radio').click(function() { var $radioInput = $(this); self.changeScanMode($radioInput.val())} );
 		$('#checkAnswerModeForm input:radio').click(function() { var $radioInput = $(this); self.changeCheckAnswerMode($radioInput.val())} );		
 			
